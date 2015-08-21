@@ -9,14 +9,14 @@
 /* Begin PBXBuildFile section */
 		324420E31B8679990017FD81 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 324420E21B8679990017FD81 /* GLUT.framework */; };
 		324420E51B86799F0017FD81 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 324420E41B86799F0017FD81 /* OpenGL.framework */; };
-		324420F21B8679E10017FD81 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324420E61B8679E10017FD81 /* main.cpp */; };
-		324420F31B8679E10017FD81 /* ZFighter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324420E71B8679E10017FD81 /* ZFighter.cpp */; };
-		324420F41B8679E10017FD81 /* Vertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324420EB1B8679E10017FD81 /* Vertex.cpp */; };
-		324420F51B8679E10017FD81 /* Face.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324420EC1B8679E10017FD81 /* Face.cpp */; };
-		324420F61B8679E10017FD81 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324420EE1B8679E10017FD81 /* Mesh.cpp */; };
-		324420F71B8679E10017FD81 /* MeshIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324420F01B8679E10017FD81 /* MeshIO.cpp */; };
 		324420FA1B8683590017FD81 /* BoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324420F81B8683590017FD81 /* BoundingBox.cpp */; };
 		324420FD1B8695120017FD81 /* Bvh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324420FB1B8695120017FD81 /* Bvh.cpp */; };
+		32745A0A1B876D2F00DBFD27 /* Face.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32745A031B876D2F00DBFD27 /* Face.cpp */; };
+		32745A0B1B876D2F00DBFD27 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32745A051B876D2F00DBFD27 /* main.cpp */; };
+		32745A0C1B876D2F00DBFD27 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32745A061B876D2F00DBFD27 /* Mesh.cpp */; };
+		32745A0D1B876D2F00DBFD27 /* MeshIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32745A081B876D2F00DBFD27 /* MeshIO.cpp */; };
+		32745A131B876D3700DBFD27 /* Vertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32745A0F1B876D3700DBFD27 /* Vertex.cpp */; };
+		32745A141B876D3700DBFD27 /* ZFighter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32745A111B876D3700DBFD27 /* ZFighter.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,22 +35,22 @@
 		324420D81B8679850017FD81 /* bvh */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bvh; sourceTree = BUILT_PRODUCTS_DIR; };
 		324420E21B8679990017FD81 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		324420E41B86799F0017FD81 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		324420E61B8679E10017FD81 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../main.cpp; sourceTree = "<group>"; };
-		324420E71B8679E10017FD81 /* ZFighter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ZFighter.cpp; path = ../ZFighter.cpp; sourceTree = "<group>"; };
-		324420E81B8679E10017FD81 /* ZFighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZFighter.h; path = ../ZFighter.h; sourceTree = "<group>"; };
-		324420E91B8679E10017FD81 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Types.h; path = ../Types.h; sourceTree = "<group>"; };
-		324420EA1B8679E10017FD81 /* Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vertex.h; path = ../Vertex.h; sourceTree = "<group>"; };
-		324420EB1B8679E10017FD81 /* Vertex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vertex.cpp; path = ../Vertex.cpp; sourceTree = "<group>"; };
-		324420EC1B8679E10017FD81 /* Face.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Face.cpp; path = ../Face.cpp; sourceTree = "<group>"; };
-		324420ED1B8679E10017FD81 /* Face.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Face.h; path = ../Face.h; sourceTree = "<group>"; };
-		324420EE1B8679E10017FD81 /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mesh.cpp; path = ../Mesh.cpp; sourceTree = "<group>"; };
-		324420EF1B8679E10017FD81 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mesh.h; path = ../Mesh.h; sourceTree = "<group>"; };
-		324420F01B8679E10017FD81 /* MeshIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MeshIO.cpp; path = ../MeshIO.cpp; sourceTree = "<group>"; };
-		324420F11B8679E10017FD81 /* MeshIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeshIO.h; path = ../MeshIO.h; sourceTree = "<group>"; };
 		324420F81B8683590017FD81 /* BoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoundingBox.cpp; sourceTree = SOURCE_ROOT; };
 		324420F91B8683590017FD81 /* BoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundingBox.h; sourceTree = SOURCE_ROOT; };
 		324420FB1B8695120017FD81 /* Bvh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bvh.cpp; sourceTree = SOURCE_ROOT; };
 		324420FC1B8695120017FD81 /* Bvh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bvh.h; sourceTree = SOURCE_ROOT; };
+		32745A031B876D2F00DBFD27 /* Face.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Face.cpp; sourceTree = "<group>"; };
+		32745A041B876D2F00DBFD27 /* Face.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Face.h; sourceTree = "<group>"; };
+		32745A051B876D2F00DBFD27 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		32745A061B876D2F00DBFD27 /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
+		32745A071B876D2F00DBFD27 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
+		32745A081B876D2F00DBFD27 /* MeshIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshIO.cpp; sourceTree = "<group>"; };
+		32745A091B876D2F00DBFD27 /* MeshIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshIO.h; sourceTree = "<group>"; };
+		32745A0E1B876D3700DBFD27 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		32745A0F1B876D3700DBFD27 /* Vertex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vertex.cpp; sourceTree = "<group>"; };
+		32745A101B876D3700DBFD27 /* Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
+		32745A111B876D3700DBFD27 /* ZFighter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ZFighter.cpp; sourceTree = "<group>"; };
+		32745A121B876D3700DBFD27 /* ZFighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFighter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +71,7 @@
 			children = (
 				324420E41B86799F0017FD81 /* OpenGL.framework */,
 				324420E21B8679990017FD81 /* GLUT.framework */,
-				324420DA1B8679850017FD81 /* bvh */,
+				32745A151B876D6900DBFD27 /* bvh */,
 				324420D91B8679850017FD81 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,27 +84,27 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		324420DA1B8679850017FD81 /* bvh */ = {
+		32745A151B876D6900DBFD27 /* bvh */ = {
 			isa = PBXGroup;
 			children = (
-				324420E61B8679E10017FD81 /* main.cpp */,
+				32745A051B876D2F00DBFD27 /* main.cpp */,
+				32745A0E1B876D3700DBFD27 /* Types.h */,
+				32745A0F1B876D3700DBFD27 /* Vertex.cpp */,
+				32745A101B876D3700DBFD27 /* Vertex.h */,
+				32745A111B876D3700DBFD27 /* ZFighter.cpp */,
+				32745A121B876D3700DBFD27 /* ZFighter.h */,
+				32745A031B876D2F00DBFD27 /* Face.cpp */,
+				32745A041B876D2F00DBFD27 /* Face.h */,
+				32745A061B876D2F00DBFD27 /* Mesh.cpp */,
+				32745A071B876D2F00DBFD27 /* Mesh.h */,
+				32745A081B876D2F00DBFD27 /* MeshIO.cpp */,
+				32745A091B876D2F00DBFD27 /* MeshIO.h */,
 				324420F81B8683590017FD81 /* BoundingBox.cpp */,
 				324420F91B8683590017FD81 /* BoundingBox.h */,
 				324420FB1B8695120017FD81 /* Bvh.cpp */,
 				324420FC1B8695120017FD81 /* Bvh.h */,
-				324420E71B8679E10017FD81 /* ZFighter.cpp */,
-				324420E81B8679E10017FD81 /* ZFighter.h */,
-				324420E91B8679E10017FD81 /* Types.h */,
-				324420EA1B8679E10017FD81 /* Vertex.h */,
-				324420EB1B8679E10017FD81 /* Vertex.cpp */,
-				324420EC1B8679E10017FD81 /* Face.cpp */,
-				324420ED1B8679E10017FD81 /* Face.h */,
-				324420EE1B8679E10017FD81 /* Mesh.cpp */,
-				324420EF1B8679E10017FD81 /* Mesh.h */,
-				324420F01B8679E10017FD81 /* MeshIO.cpp */,
-				324420F11B8679E10017FD81 /* MeshIO.h */,
 			);
-			path = bvh;
+			name = bvh;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,14 +163,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32745A141B876D3700DBFD27 /* ZFighter.cpp in Sources */,
+				32745A131B876D3700DBFD27 /* Vertex.cpp in Sources */,
+				32745A0A1B876D2F00DBFD27 /* Face.cpp in Sources */,
 				324420FD1B8695120017FD81 /* Bvh.cpp in Sources */,
-				324420F51B8679E10017FD81 /* Face.cpp in Sources */,
+				32745A0B1B876D2F00DBFD27 /* main.cpp in Sources */,
 				324420FA1B8683590017FD81 /* BoundingBox.cpp in Sources */,
-				324420F41B8679E10017FD81 /* Vertex.cpp in Sources */,
-				324420F31B8679E10017FD81 /* ZFighter.cpp in Sources */,
-				324420F21B8679E10017FD81 /* main.cpp in Sources */,
-				324420F71B8679E10017FD81 /* MeshIO.cpp in Sources */,
-				324420F61B8679E10017FD81 /* Mesh.cpp in Sources */,
+				32745A0D1B876D2F00DBFD27 /* MeshIO.cpp in Sources */,
+				32745A0C1B876D2F00DBFD27 /* Mesh.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +297,7 @@
 				324420E11B8679850017FD81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

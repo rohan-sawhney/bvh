@@ -2,27 +2,26 @@
 #define BVH_H
 
 #include "Types.h"
+#include "BoundingBox.h"
 
-class Node;
+struct Node {
+    // member variables
+    BoundingBox boundingBox;
+    int startId, range, rightOffset;
+};
 
 class Bvh {
 public:
-    Bvh(Mesh *meshPtr0);
+    Bvh(Mesh *meshPtr0, const int leafSize0 = 1);
     
-    // checks if a face overlaps with other faces
-    bool doesOverlap(const Face& f);
+    // checks if a face overlaps with another face. Returns face id and sets normal to face
+    int doesOverlap(const int fid, Eigen::Vector3d& normal) const;
     
-private:
-    // computes the bounding box a face
-    BoundingBox computeBoundingBox(const int fId);
-    
-    // computes the centroid a face
-    Eigen::Vector3d computeCentroid(const int fId);
-    
+private:    
     // builds the bvh
     void build();
     
-    int nodeCount, leafCount;
+    int nodeCount, leafCount, leafSize;
     std::vector<Node> flatTree;
     Mesh *meshPtr;
 };

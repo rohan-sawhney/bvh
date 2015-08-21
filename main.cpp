@@ -21,7 +21,7 @@ double y = 0;
 Mesh mesh;
 ZFighter zFighter;
 int m = 0;
-std::vector<std::string> paths = {"/Users/rohansawhney/Desktop/r.obj"};
+std::vector<std::string> paths = {"/Users/rohansawhney/Desktop/geometry.ivr"};
 bool success = true;
 
 void printInstructions()
@@ -45,10 +45,25 @@ void init()
 
 void drawFaces()
 {
-    glColor4f(0, 0, 1, 0.6);
     for (FaceIter f = mesh.faces.begin(); f != mesh.faces.end(); f++) {
 
+        glColor4f(0, 0, 1, 0.6);
         glBegin(GL_TRIANGLES);
+        
+        glVertex3d(mesh.vertices[f->indices[0]].position.x(),
+                   mesh.vertices[f->indices[0]].position.y(),
+                   mesh.vertices[f->indices[0]].position.z());
+        glVertex3d(mesh.vertices[f->indices[1]].position.x(),
+                   mesh.vertices[f->indices[1]].position.y(),
+                   mesh.vertices[f->indices[1]].position.z());
+        glVertex3d(mesh.vertices[f->indices[2]].position.x(),
+                   mesh.vertices[f->indices[2]].position.y(),
+                   mesh.vertices[f->indices[2]].position.z());
+        
+        glEnd();
+        
+        glColor4f(1, 1, 1, 0.6);
+        glBegin(GL_LINE_LOOP);
         
         glVertex3d(mesh.vertices[f->indices[0]].position.x(),
                    mesh.vertices[f->indices[0]].position.y(),
@@ -95,6 +110,7 @@ void keyboard(unsigned char key, int x0, int y0)
             exit(0);
         case ' ':
             zFighter.process(mesh);
+            break;
         case 'a':
             x -= 0.03;
             break;
