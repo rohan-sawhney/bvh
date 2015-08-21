@@ -21,9 +21,6 @@ double y = 0;
 Mesh mesh;
 ZFighter zFighter;
 std::string path = "/Users/rohansawhney/Desktop/developer/C++/bvh/geometry.obj";
-int m = 0;
-std::vector<std::string> paths = {"/Users/rohansawhney/Desktop/geometry.ivr"};
->>>>>>> origin/master
 bool success = true;
 
 void printInstructions()

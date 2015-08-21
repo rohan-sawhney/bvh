@@ -21,24 +21,7 @@ void ZFighter::process(Mesh& mesh) const
             
             for (int k = 0; k < 3; k++) {
                 mesh.vertices[mesh.faces[i].indices[k]].position += r * normal;
-<<<<<<< HEAD
-=======
             }
         }
-        
-     /*
-        Face f = mesh.faces[i];
-        for (int j = 0; j < (int)mesh.faces.size(); j++) {
-            if (!f.shareEdge(mesh, j) && f.overlap(mesh, j, normal)) {
-                double r = distribution(generator);
-                if (rand() / (double)RAND_MAX > 0.5) r = -r;
-                
-                for (int k = 0; k < 3; k++) {
-                    mesh.vertices[mesh.faces[i].indices[k]].position += r * normal;
-                }
->>>>>>> origin/master
-            }
-        }
-      */
     }
 }
