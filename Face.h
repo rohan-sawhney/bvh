@@ -10,6 +10,7 @@ public:
     
     // indices
     Eigen::Vector3d indices;
+    
 };
 
 #endif

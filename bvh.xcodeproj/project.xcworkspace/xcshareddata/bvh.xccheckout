@@ -7,25 +7,29 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>6504393D-998E-4B19-9D51-7A0DBA6A5096</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>bvh</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>93012211585513E702385219484BD8E8D4D7E84E</key>
 		<string>https://github.com/rohan-sawhney/medial-axis-transform-2d.git</string>
+		<key>EB0D9AC1D40E1FD82901FCC25F0DCA0A288A5E4F</key>
+		<string>https://github.com/rohan-sawhney/bvh.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>bvh/bvh.xcodeproj/project.xcworkspace</string>
+	<string>bvh.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>93012211585513E702385219484BD8E8D4D7E84E</key>
 		<string>../../..</string>
+		<key>EB0D9AC1D40E1FD82901FCC25F0DCA0A288A5E4F</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/rohan-sawhney/medial-axis-transform-2d.git</string>
+	<string>https://github.com/rohan-sawhney/bvh.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>93012211585513E702385219484BD8E8D4D7E84E</string>
+	<string>EB0D9AC1D40E1FD82901FCC25F0DCA0A288A5E4F</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -34,7 +38,15 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>93012211585513E702385219484BD8E8D4D7E84E</string>
 			<key>IDESourceControlWCCName</key>
-			<string>C++</string>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EB0D9AC1D40E1FD82901FCC25F0DCA0A288A5E4F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>bvh</string>
 		</dict>
 	</array>
 </dict>

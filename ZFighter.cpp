@@ -1,4 +1,5 @@
 #include "ZFighter.h"
+#include "Mesh.h"
 #include <random>
 
 #define EPSILON 1e-6
@@ -81,9 +82,10 @@ void ZFighter::process(Mesh& mesh)
     std::default_random_engine generator;
     std::uniform_real_distribution<double> distribution(0.009,0.012);
 
-    for (int i = 0; i < (int)mesh.faces.size()-1; i++) {
-        for (int j = i+1; j < (int)mesh.faces.size(); j++) {
-            if (!shareEdge(mesh, i, j) && overlap(mesh, i, j)) {
+    // if any two triangles overlap, displace one of them
+    for (int i = 0; i < (int)mesh.faces.size(); i++) {
+        for (int j = 0; j < (int)mesh.faces.size(); j++) {
+            if (i != j && !shareEdge(mesh, i, j) && overlap(mesh, i, j)) {
                 double r = distribution(generator);
                 if (rand() / (double)RAND_MAX > 0.5) r = -r;
                 

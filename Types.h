@@ -14,6 +14,7 @@ class Vertex;
 class Face;
 class Mesh;
 class MeshIO;
+class BoundingBox;
 
 typedef std::vector<Vertex>::iterator VertexIter;
 typedef std::vector<Vertex>::const_iterator VertexCIter;

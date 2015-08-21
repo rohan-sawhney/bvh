@@ -15,6 +15,8 @@
 		324420F51B8679E10017FD81 /* Face.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324420EC1B8679E10017FD81 /* Face.cpp */; };
 		324420F61B8679E10017FD81 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324420EE1B8679E10017FD81 /* Mesh.cpp */; };
 		324420F71B8679E10017FD81 /* MeshIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324420F01B8679E10017FD81 /* MeshIO.cpp */; };
+		324420FA1B8683590017FD81 /* BoundingBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324420F81B8683590017FD81 /* BoundingBox.cpp */; };
+		324420FD1B8695120017FD81 /* Bvh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 324420FB1B8695120017FD81 /* Bvh.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +47,10 @@
 		324420EF1B8679E10017FD81 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mesh.h; path = ../Mesh.h; sourceTree = "<group>"; };
 		324420F01B8679E10017FD81 /* MeshIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MeshIO.cpp; path = ../MeshIO.cpp; sourceTree = "<group>"; };
 		324420F11B8679E10017FD81 /* MeshIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeshIO.h; path = ../MeshIO.h; sourceTree = "<group>"; };
+		324420F81B8683590017FD81 /* BoundingBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoundingBox.cpp; sourceTree = SOURCE_ROOT; };
+		324420F91B8683590017FD81 /* BoundingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoundingBox.h; sourceTree = SOURCE_ROOT; };
+		324420FB1B8695120017FD81 /* Bvh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bvh.cpp; sourceTree = SOURCE_ROOT; };
+		324420FC1B8695120017FD81 /* Bvh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bvh.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +88,10 @@
 			isa = PBXGroup;
 			children = (
 				324420E61B8679E10017FD81 /* main.cpp */,
+				324420F81B8683590017FD81 /* BoundingBox.cpp */,
+				324420F91B8683590017FD81 /* BoundingBox.h */,
+				324420FB1B8695120017FD81 /* Bvh.cpp */,
+				324420FC1B8695120017FD81 /* Bvh.h */,
 				324420E71B8679E10017FD81 /* ZFighter.cpp */,
 				324420E81B8679E10017FD81 /* ZFighter.h */,
 				324420E91B8679E10017FD81 /* Types.h */,
@@ -153,7 +163,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				324420FD1B8695120017FD81 /* Bvh.cpp in Sources */,
 				324420F51B8679E10017FD81 /* Face.cpp in Sources */,
+				324420FA1B8683590017FD81 /* BoundingBox.cpp in Sources */,
 				324420F41B8679E10017FD81 /* Vertex.cpp in Sources */,
 				324420F31B8679E10017FD81 /* ZFighter.cpp in Sources */,
 				324420F21B8679E10017FD81 /* main.cpp in Sources */,

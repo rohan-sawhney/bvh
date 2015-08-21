@@ -5,6 +5,7 @@
 #endif
 
 #include "ZFighter.h"
+#include "Mesh.h"
 
 int gridX = 600;
 int gridY = 600;
