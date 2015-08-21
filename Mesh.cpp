@@ -1,5 +1,7 @@
 #include "Mesh.h"
 #include "MeshIO.h"
+#include "Vertex.h"
+#include "Face.h"
 
 Mesh::Mesh()
 {
@@ -17,7 +19,7 @@ bool Mesh::read(const std::string& fileName)
 
     if (!in.is_open()) {
         std::cerr << "Error: Could not open file for reading" << std::endl;
-        //return false;
+        return false;
     }
     
     bool readSuccessful = false;

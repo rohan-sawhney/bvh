@@ -51,7 +51,7 @@ bool MeshIO::read(std::ifstream& in, Mesh& mesh)
     mesh.uvs.clear();
     mesh.normals.clear();
     mesh.faces.clear();
-    /*
+    
     std::vector<Vertex> vertices;
     std::vector<Eigen::Vector3d> uvs;
     std::vector<Eigen::Vector3d> normals;
@@ -110,22 +110,6 @@ bool MeshIO::read(std::ifstream& in, Mesh& mesh)
             mesh.faces.push_back(Face(indices));
         }
     }
-     */
-    
-    mesh.vertices.push_back(Vertex(Eigen::Vector3d(7, 10 ,0), 0));
-    mesh.vertices.push_back(Vertex(Eigen::Vector3d(2, 30 ,0), 1));
-    mesh.vertices.push_back(Vertex(Eigen::Vector3d(12, 30 ,0), 2));
-    mesh.faces.push_back(Face(Eigen::Vector3d(0, 1, 2)));
-    
-    mesh.vertices.push_back(Vertex(Eigen::Vector3d(10, 10 ,0), 3));
-    mesh.vertices.push_back(Vertex(Eigen::Vector3d(5, 30 ,0), 4));
-    mesh.vertices.push_back(Vertex(Eigen::Vector3d(15, 30 ,0), 5));
-    mesh.faces.push_back(Face(Eigen::Vector3d(3, 4, 5)));
-    
-    mesh.vertices.push_back(Vertex(Eigen::Vector3d(15, 10 ,0), 6));
-    mesh.vertices.push_back(Vertex(Eigen::Vector3d(10, 30 ,0), 7));
-    mesh.vertices.push_back(Vertex(Eigen::Vector3d(20, 30 ,0), 8));
-    mesh.faces.push_back(Face(Eigen::Vector3d(6, 7, 8)));
     
     return true;
 }

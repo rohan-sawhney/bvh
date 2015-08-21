@@ -6,7 +6,7 @@
 class ZFighter {
 public:
     // solves z fighting by shifting overlapping triangles 
-    void process(Mesh& mesh);    
+    void process(Mesh& mesh) const;
 };
 
 #endif

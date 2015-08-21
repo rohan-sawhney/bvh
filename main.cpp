@@ -20,8 +20,7 @@ double y = 0;
 
 Mesh mesh;
 ZFighter zFighter;
-int m = 0;
-std::vector<std::string> paths = {"/Users/rohansawhney/Desktop/r.obj"};
+std::string path = "/Users/rohansawhney/Desktop/developer/C++/bvh/geometry.obj";
 bool success = true;
 
 void printInstructions()
@@ -30,7 +29,7 @@ void printInstructions()
               << "↑/↓: move in/out\n"
               << "w/s: move up/down\n"
               << "a/d: move left/right\n"
-              << "→/←: toggle between meshes\n"
+              << "r: reload\n"
               << "escape: exit program\n"
               << std::endl;
 }
@@ -45,10 +44,25 @@ void init()
 
 void drawFaces()
 {
-    glColor4f(0, 0, 1, 0.6);
     for (FaceIter f = mesh.faces.begin(); f != mesh.faces.end(); f++) {
 
+        glColor4f(0, 0, 1, 0.6);
         glBegin(GL_TRIANGLES);
+        
+        glVertex3d(mesh.vertices[f->indices[0]].position.x(),
+                   mesh.vertices[f->indices[0]].position.y(),
+                   mesh.vertices[f->indices[0]].position.z());
+        glVertex3d(mesh.vertices[f->indices[1]].position.x(),
+                   mesh.vertices[f->indices[1]].position.y(),
+                   mesh.vertices[f->indices[1]].position.z());
+        glVertex3d(mesh.vertices[f->indices[2]].position.x(),
+                   mesh.vertices[f->indices[2]].position.y(),
+                   mesh.vertices[f->indices[2]].position.z());
+        
+        glEnd();
+        
+        glColor4f(1, 1, 1, 0.6);
+        glBegin(GL_LINE_LOOP);
         
         glVertex3d(mesh.vertices[f->indices[0]].position.x(),
                    mesh.vertices[f->indices[0]].position.y(),
@@ -95,6 +109,7 @@ void keyboard(unsigned char key, int x0, int y0)
             exit(0);
         case ' ':
             zFighter.process(mesh);
+            break;
         case 'a':
             x -= 0.03;
             break;
@@ -106,6 +121,9 @@ void keyboard(unsigned char key, int x0, int y0)
             break;
         case 's':
             y -= 0.03;
+            break;
+        case 'r':
+            success = mesh.read(path);
             break;
     }
     
@@ -121,16 +139,6 @@ void special(int i, int x0, int y0)
         case GLUT_KEY_DOWN:
             z -= 0.03;
             break;
-        case GLUT_KEY_LEFT:
-            m--;
-            if (m < 0) m = (int)paths.size()-1;
-            success = mesh.read(paths[m]);
-            break;
-        case GLUT_KEY_RIGHT:
-            m++;
-            if (m == (int)paths.size()) m = 0;
-            success = mesh.read(paths[m]);
-            break;
     }
     
     glutPostRedisplay();
@@ -138,7 +146,7 @@ void special(int i, int x0, int y0)
 
 int main(int argc, char** argv) {
 
-    success = mesh.read(paths[m]);
+    success = mesh.read(path);
     
     printInstructions();
     glutInitWindowSize(gridX, gridY);

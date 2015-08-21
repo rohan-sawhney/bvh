@@ -2,8 +2,8 @@
 #define MESH_H
 
 #include "Types.h"
-#include "Vertex.h"
 #include "Face.h"
+#include "Vertex.h"
 
 class Mesh {
 public:

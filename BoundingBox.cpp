@@ -1,8 +1,10 @@
 #include "BoundingBox.h"
+#include "Face.h"
 
 BoundingBox::BoundingBox():
 min(Eigen::Vector3d::Zero()),
-max(Eigen::Vector3d::Zero())
+max(Eigen::Vector3d::Zero()),
+extent(Eigen::Vector3d::Zero())
 {
     
 }
@@ -50,4 +52,21 @@ int BoundingBox::maxDimension() const
     if (extent.z() > extent.y() && extent.z() > extent.x()) result = 2;
     
     return result;
+}
+
+bool BoundingBox::contains(const BoundingBox& boundingBox, double& dist) const
+{
+    Eigen::Vector3d bMin = boundingBox.min;
+    Eigen::Vector3d bMax = boundingBox.max;
+    
+    if (((min.x() <= bMin.x() && bMin.x() <= max.x()) || (bMin.x() <= min.x() && min.x() <= bMax.x())) &&
+        ((min.x() <= bMin.y() && bMin.y() <= max.y()) || (bMin.y() <= min.y() && min.y() <= bMax.y())) &&
+        ((min.x() <= bMin.z() && bMin.z() <= max.z()) || (bMin.z() <= min.z() && min.z() <= bMax.z()))) {
+        
+        Eigen::Vector3d v = ((min + max)/2) - ((bMin + bMax)/2);
+        dist = v.norm();
+        return true;
+    }
+    
+    return false;
 }

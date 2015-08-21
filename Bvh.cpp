@@ -1,22 +1,17 @@
 #include "Bvh.h"
-#include "BoundingBox.h"
 #include "Mesh.h"
 #include <stack>
 
-class Node {
-public:
-    BoundingBox boundingBox;
-    
-    int startId, range, rightOffset;
-};
-
-Bvh::Bvh(Mesh *meshPtr0):
-meshPtr(meshPtr0)
+Bvh::Bvh(Mesh *meshPtr0, int leafSize0):
+meshPtr(meshPtr0),
+nodeCount(0),
+leafCount(0),
+leafSize(leafSize0)
 {
-    
+    build();
 }
 
-struct BvhNodeEntry {
+struct NodeEntry {
     // parent id
     int parentId;
     
@@ -24,57 +19,19 @@ struct BvhNodeEntry {
     int startId, endId;
 };
 
-BoundingBox Bvh::computeBoundingBox(const int fId)
-{
-    // assumes face is a triangle
-    Eigen::Vector3d p1 = meshPtr->vertices[meshPtr->faces[fId].indices[0]].position;
-    Eigen::Vector3d p2 = meshPtr->vertices[meshPtr->faces[fId].indices[1]].position;
-    Eigen::Vector3d p3 = meshPtr->vertices[meshPtr->faces[fId].indices[2]].position;
-    
-    Eigen::Vector3d min = p1;
-    Eigen::Vector3d max = p1;
-    
-    if (p2.x() < min.x()) min.x() = p2.x();
-    if (p3.x() < min.x()) min.x() = p3.x();
-    
-    if (p2.y() < min.y()) min.y() = p2.y();
-    if (p3.y() < min.y()) min.y() = p3.y();
-    
-    if (p2.z() < min.z()) min.z() = p2.z();
-    if (p3.z() < min.z()) min.z() = p3.z();
-    
-    if (p2.x() > max.x()) max.x() = p2.x();
-    if (p3.x() > max.x()) max.x() = p3.x();
-    
-    if (p2.y() > max.y()) max.y() = p2.y();
-    if (p3.y() > max.y()) max.y() = p3.y();
-    
-    if (p2.z() > max.z()) max.z() = p2.z();
-    if (p3.z() > max.z()) max.z() = p3.z();
-    
-    return BoundingBox(min, max);
-}
-
-Eigen::Vector3d Bvh::computeCentroid(const int fId)
-{
-    // assumes face is a triangle
-    Eigen::Vector3d centroid = (meshPtr->vertices[meshPtr->faces[fId].indices[0]].position +
-                                meshPtr->vertices[meshPtr->faces[fId].indices[1]].position +
-                                meshPtr->vertices[meshPtr->faces[fId].indices[2]].position) / 3;
-    return centroid;
-}
-
 void Bvh::build()
 {
-    std::stack<BvhNodeEntry> stack;
+    std::stack<NodeEntry> stack;
     const int faceCount = (int)meshPtr->faces.size();
     
-    BvhNodeEntry nodeEntry;
+    NodeEntry nodeEntry;
     nodeEntry.parentId = -1;
     nodeEntry.startId = 0;
     nodeEntry.endId = faceCount;
     stack.push(nodeEntry);
     
+    Node node;
+    Face f;
     std::vector<Node> nodes;
     nodes.reserve(faceCount * 2);
     
@@ -84,34 +41,36 @@ void Bvh::build()
         stack.pop();
         int startId = nodeEntry.startId;
         int endId = nodeEntry.endId;
-        
+
         nodeCount ++;
-        Node node;
         node.startId = startId;
         node.range = endId - startId;
-        node.rightOffset = 0; // TODO
+        node.rightOffset = 2;
         
         // calculate bounding box
-        BoundingBox boundingBox(computeBoundingBox(startId));
-        BoundingBox boundingCentroid(computeCentroid(startId));
-        for (int i = 0; i < endId; i++) {
-            boundingBox.expandToInclude(computeBoundingBox(i));
-            boundingCentroid.expandToInclude(computeCentroid(i));
+        f = meshPtr->faces[startId];
+        BoundingBox boundingBox(f.boundingBox(*meshPtr));
+        BoundingBox boundingCentroid(f.centroid(*meshPtr));
+        for (int i = startId+1; i < endId; i++) {
+            f = meshPtr->faces[i];
+            boundingBox.expandToInclude(f.boundingBox(*meshPtr));
+            boundingCentroid.expandToInclude(f.centroid(*meshPtr));
         }
         node.boundingBox = boundingBox;
-        
+
         // if node is a leaf
-        if (node.range <= 1) {
+        if (node.range <= leafSize) {
             node.rightOffset = 0;
             leafCount ++;
         }
         
         nodes.push_back(node);
         
+        // compute parent's rightOffset
         if (nodeEntry.parentId != -1) {
             nodes[nodeEntry.parentId].rightOffset --;
             
-            if (nodes[nodeEntry.parentId].rightOffset == 5) { // TODO
+            if (nodes[nodeEntry.parentId].rightOffset == 0) {
                 nodes[nodeEntry.parentId].rightOffset = nodeCount - 1 - nodeEntry.parentId;
             }
         }
@@ -129,7 +88,8 @@ void Bvh::build()
         // partition faces
         int mid = startId;
         for (int i = startId; i < endId; i++) {
-            if (computeCentroid(i)[maxDimension] < splitCoord) {
+            f = meshPtr->faces[i];
+            if (f.centroid(*meshPtr)[maxDimension] < splitCoord) {
                 std::swap(meshPtr->faces[i], meshPtr->faces[mid]);
                 mid ++;
             }
@@ -159,7 +119,61 @@ void Bvh::build()
     }
 }
 
-bool Bvh::doesOverlap(const Face& f)
+int Bvh::doesOverlap(const int fid, Eigen::Vector3d& normal) const
 {
-    return false;
+    Face f = meshPtr->faces[fid];
+    BoundingBox boundingBox = f.boundingBox(*meshPtr);
+    
+    int id = 0;
+    int closer, further;
+    double dist1 = 0.0;
+    double dist2 = 0.0;
+    
+    std::stack<int> stack;
+    stack.push(id);
+    
+    while (!stack.empty()) {
+        id = stack.top();
+        stack.pop();
+        
+        const Node &node(flatTree[id]);
+        // node is a leaf
+        if (node.rightOffset == 0) {
+            for (int i = 0; i < node.range; i++) {
+                // check for overlap
+                if (!f.shareEdge(*meshPtr, node.startId+i) &&
+                     f.overlap(*meshPtr, node.startId+i, normal)) {
+                    
+                    return node.startId+i;
+                }
+            }
+            
+        } else { // not a leaf
+            bool hit0 = flatTree[id+1].boundingBox.contains(boundingBox, dist1);
+            bool hit1 = flatTree[id+node.rightOffset].boundingBox.contains(boundingBox, dist2);
+            
+            // hit both bounding boxes
+            if (hit0 && hit1) {
+                closer = id+1;
+                further = id+node.rightOffset;
+                
+                if (dist2 < dist1) {
+                    std::swap(dist1, dist2);
+                    std::swap(closer, further);
+                }
+                
+                // push farther node first
+                stack.push(further);
+                stack.push(closer);
+                
+            } else if (hit0) {
+                stack.push(id+1);
+                
+            } else if (hit1) {
+                stack.push(id+node.rightOffset);
+            }
+        }
+    }
+    
+    return -1;
 }
