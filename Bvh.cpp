@@ -138,7 +138,13 @@ int Bvh::doesOverlap(const int fid, Eigen::Vector3d& normal) const
         
         const Node &node(flatTree[id]);
         // node is a leaf
+<<<<<<< HEAD
         if (node.rightOffset == 0) {
+=======
+        //std::cout << "1: " << node.rightOffset << std::endl;
+        if (node.rightOffset == 0) {
+            //std::cout << "leaf r: " << node.range << std::endl;
+>>>>>>> origin/master
             for (int i = 0; i < node.range; i++) {
                 // check for overlap
                 if (!f.shareEdge(*meshPtr, node.startId+i) &&
@@ -152,6 +158,10 @@ int Bvh::doesOverlap(const int fid, Eigen::Vector3d& normal) const
             bool hit0 = flatTree[id+1].boundingBox.contains(boundingBox, dist1);
             bool hit1 = flatTree[id+node.rightOffset].boundingBox.contains(boundingBox, dist2);
             
+<<<<<<< HEAD
+=======
+            //std::cout << "hit0: " << hit0 << " hit1: " << hit1 << std::endl;
+>>>>>>> origin/master
             // hit both bounding boxes
             if (hit0 && hit1) {
                 closer = id+1;
@@ -175,5 +185,9 @@ int Bvh::doesOverlap(const int fid, Eigen::Vector3d& normal) const
         }
     }
     
+<<<<<<< HEAD
+=======
+    //std::cout << "return -1" << std::endl;
+>>>>>>> origin/master
     return -1;
 }
