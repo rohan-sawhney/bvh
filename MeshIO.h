@@ -4,8 +4,6 @@
 #include <fstream>
 #include "Types.h"
 
-class MeshData;
-
 class MeshIO {
 public:
     // reads data from obj file
