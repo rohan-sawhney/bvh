@@ -2,6 +2,7 @@
 #define FACE_H
 
 #include "Types.h"
+#define INF 1e12
 
 class Face {
 public:
@@ -14,6 +15,9 @@ public:
     // indices
     Eigen::Vector3d indices;
     
+    // returns face normal
+    Eigen::Vector3d normal(const Mesh& mesh) const;
+    
     // computes the bounding box of the face
     BoundingBox boundingBox(const Mesh& mesh) const;
     
@@ -24,7 +28,7 @@ public:
     bool shareEdge(const Mesh& mesh, const int fIdx) const;
     
     // checks if two faces overlap
-    bool overlap(const Mesh& mesh, const int fIdx, Eigen::Vector3d& normal) const;
+    bool overlap(const Mesh& mesh, const int fIdx, const Eigen::Vector3d& normal) const;
 };
 
 #endif

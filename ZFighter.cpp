@@ -6,16 +6,16 @@
 void ZFighter::process(Mesh& mesh) const
 {
     Bvh bvh(&mesh);
-    
+   
     std::default_random_engine generator;
-    std::uniform_real_distribution<double> distribution(0.009,0.012);
+    std::uniform_real_distribution<double> distribution(0.00009,0.00012);
     
-    Eigen::Vector3d normal;
-
     // if any two triangles overlap, displace one of them
     for (int i = 0; i < (int)mesh.faces.size(); i++) {
-        
+    
+        Eigen::Vector3d normal = mesh.faces[i].normal(mesh);
         if (bvh.doesOverlap(i, normal) != -1) {
+
             double r = distribution(generator);
             if (rand() / (double)RAND_MAX > 0.5) r = -r;
             

@@ -14,6 +14,22 @@ indices(indices0)
     
 }
 
+Eigen::Vector3d Face::normal(const Mesh& mesh) const
+{
+    Eigen::Vector3d p1 = mesh.vertices[indices[0]].position;
+    Eigen::Vector3d p2 = mesh.vertices[indices[1]].position;
+    Eigen::Vector3d p3 = mesh.vertices[indices[2]].position;
+    
+    // find the normal to the face
+    Eigen::Vector3d v1 = p1 - p2;
+    Eigen::Vector3d v2 = p3 - p2;
+    
+    Eigen::Vector3d normal = v1.cross(v2);
+    normal.normalize();
+    
+    return normal;
+}
+
 BoundingBox Face::boundingBox(const Mesh& mesh) const
 {
     // assumes face is a triangle
@@ -85,16 +101,10 @@ bool intersect(const Eigen::Vector3d& p, const Eigen::Vector3d& r,
     return t >= 0 && t <= 1 && u >= 0 && u <= 1;
 }
 
-bool Face::overlap(const Mesh& mesh, const int fIdx, Eigen::Vector3d& normal) const
+bool Face::overlap(const Mesh& mesh, const int fIdx, const Eigen::Vector3d& normal) const
 {
     // pick a vertex from the first triangle
     Eigen::Vector3d t1 = mesh.vertices[indices[1]].position;
-    
-    // find the normal to the face
-    Eigen::Vector3d v1 = mesh.vertices[indices[0]].position - t1;
-    Eigen::Vector3d v2 = mesh.vertices[indices[2]].position - t1;
-    
-    normal = v1.cross(v2);
     
     // check if sum of dot x normal from vertices of second triangle to t1 is close to zero
     Eigen::Vector3d t11 = mesh.vertices[mesh.faces[fIdx].indices[0]].position - t1;

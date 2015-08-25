@@ -31,7 +31,7 @@ void Bvh::build()
     stack.push(nodeEntry);
     
     Node node;
-    Face f;
+    Face *f;
     std::vector<Node> nodes;
     nodes.reserve(faceCount * 2);
     
@@ -48,13 +48,13 @@ void Bvh::build()
         node.rightOffset = 2;
         
         // calculate bounding box
-        f = meshPtr->faces[startId];
-        BoundingBox boundingBox(f.boundingBox(*meshPtr));
-        BoundingBox boundingCentroid(f.centroid(*meshPtr));
+        f = &meshPtr->faces[startId];
+        BoundingBox boundingBox(f->boundingBox(*meshPtr));
+        BoundingBox boundingCentroid(f->centroid(*meshPtr));
         for (int i = startId+1; i < endId; i++) {
-            f = meshPtr->faces[i];
-            boundingBox.expandToInclude(f.boundingBox(*meshPtr));
-            boundingCentroid.expandToInclude(f.centroid(*meshPtr));
+            f = &meshPtr->faces[i];
+            boundingBox.expandToInclude(f->boundingBox(*meshPtr));
+            boundingCentroid.expandToInclude(f->centroid(*meshPtr));
         }
         node.boundingBox = boundingBox;
 
@@ -88,8 +88,8 @@ void Bvh::build()
         // partition faces
         int mid = startId;
         for (int i = startId; i < endId; i++) {
-            f = meshPtr->faces[i];
-            if (f.centroid(*meshPtr)[maxDimension] < splitCoord) {
+            f = &meshPtr->faces[i];
+            if (f->centroid(*meshPtr)[maxDimension] < splitCoord) {
                 std::swap(meshPtr->faces[i], meshPtr->faces[mid]);
                 mid ++;
             }
@@ -119,10 +119,10 @@ void Bvh::build()
     }
 }
 
-int Bvh::doesOverlap(const int fid, Eigen::Vector3d& normal) const
+int Bvh::doesOverlap(const int fid, const Eigen::Vector3d& normal) const
 {
-    Face f = meshPtr->faces[fid];
-    BoundingBox boundingBox = f.boundingBox(*meshPtr);
+    Face *f = &meshPtr->faces[fid];
+    BoundingBox boundingBox = f->boundingBox(*meshPtr);
     
     int id = 0;
     int closer, further;
@@ -141,8 +141,8 @@ int Bvh::doesOverlap(const int fid, Eigen::Vector3d& normal) const
         if (node.rightOffset == 0) {
             for (int i = 0; i < node.range; i++) {
                 // check for overlap
-                if (!f.shareEdge(*meshPtr, node.startId+i) &&
-                     f.overlap(*meshPtr, node.startId+i, normal)) {
+                if (!f->shareEdge(*meshPtr, node.startId+i) &&
+                     f->overlap(*meshPtr, node.startId+i, normal)) {
                     
                     return node.startId+i;
                 }

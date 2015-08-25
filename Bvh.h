@@ -14,8 +14,8 @@ class Bvh {
 public:
     Bvh(Mesh *meshPtr0, const int leafSize0 = 1);
     
-    // checks if a face overlaps with another face. Returns face id and sets normal to face
-    int doesOverlap(const int fid, Eigen::Vector3d& normal) const;
+    // checks if a face overlaps with another face. Returns face id
+    int doesOverlap(const int fid, const Eigen::Vector3d& normal) const;
     
 private:    
     // builds the bvh
