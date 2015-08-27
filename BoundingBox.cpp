@@ -32,6 +32,8 @@ void BoundingBox::expandToInclude(const Eigen::Vector3d& p)
     if (max.x() < p.x()) max.x() = p.x();
     if (max.y() < p.y()) max.y() = p.y();
     if (max.z() < p.z()) max.z() = p.z();
+    
+    extent = max - min;
 }
 
 void BoundingBox::expandToInclude(const BoundingBox& b)
@@ -43,6 +45,8 @@ void BoundingBox::expandToInclude(const BoundingBox& b)
     if (max.x() < b.max.x()) max.x() = b.max.x();
     if (max.y() < b.max.y()) max.y() = b.max.y();
     if (max.z() < b.max.z()) max.z() = b.max.z();
+    
+    extent = max - min;
 }
 
 int BoundingBox::maxDimension() const
