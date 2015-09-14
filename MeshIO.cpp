@@ -1,5 +1,4 @@
 #include "MeshIO.h"
-#include "Face.h"
 #include "Mesh.h"
 
 class Index {
@@ -145,5 +144,6 @@ void MeshIO::write(std::ofstream& out, const Mesh& mesh)
                 << f->indices[i] << "/"
                 << f->indices[i] << " ";
         }
+        std::cout << std::endl;
     }
 }
