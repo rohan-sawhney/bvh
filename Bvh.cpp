@@ -149,8 +149,8 @@ int Bvh::doesOverlap(const int fid, const Eigen::Vector3d& normal) const
             }
             
         } else { // not a leaf
-            bool hit0 = flatTree[id+1].boundingBox.contains(boundingBox, dist1);
-            bool hit1 = flatTree[id+node.rightOffset].boundingBox.contains(boundingBox, dist2);
+            bool hit0 = flatTree[id+1].boundingBox.intersect(boundingBox, dist1);
+            bool hit1 = flatTree[id+node.rightOffset].boundingBox.intersect(boundingBox, dist2);
             
             // hit both bounding boxes
             if (hit0 && hit1) {
