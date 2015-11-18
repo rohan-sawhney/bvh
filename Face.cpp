@@ -131,14 +131,11 @@ bool Face::overlap(const Mesh& mesh, const int fIdx, const Eigen::Vector3d& norm
             }
         }
         
-        int n = 0;
         for (int i = 0; i < 3; i++) {
             if (mesh.faces[fIdx].containsPoint(mesh, mesh.vertices[indices[i]].position)) {
-                n ++;
+                return true;
             }
         }
-        
-        if (n == 3) return true;
     }
     
     return false;
