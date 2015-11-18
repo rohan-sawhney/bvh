@@ -27,6 +27,9 @@ public:
     // checks if face shares edges with other faces
     bool shareEdge(const Mesh& mesh, const int fIdx) const;
     
+    // checks if point is contained in face
+    bool containsPoint(const Mesh& mesh, const Eigen::Vector3d& p) const;
+    
     // checks if two faces overlap
     bool overlap(const Mesh& mesh, const int fIdx, const Eigen::Vector3d& normal) const;
 };

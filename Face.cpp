@@ -33,9 +33,9 @@ Eigen::Vector3d Face::normal(const Mesh& mesh) const
 BoundingBox Face::boundingBox(const Mesh& mesh) const
 {
     // assumes face is a triangle
-    Eigen::Vector3d p1 = mesh.vertices[indices[0]].position;
-    Eigen::Vector3d p2 = mesh.vertices[indices[1]].position;
-    Eigen::Vector3d p3 = mesh.vertices[indices[2]].position;
+    const Eigen::Vector3d& p1(mesh.vertices[indices[0]].position);
+    const Eigen::Vector3d& p2(mesh.vertices[indices[1]].position);
+    const Eigen::Vector3d& p3(mesh.vertices[indices[2]].position);
     
     Eigen::Vector3d min = p1;
     Eigen::Vector3d max = p1;
@@ -86,19 +86,28 @@ bool Face::shareEdge(const Mesh& mesh, const int fIdx) const
     return sharedVerts > 1;
 }
 
-bool intersect(const Eigen::Vector3d& p, const Eigen::Vector3d& r,
-               const Eigen::Vector3d& q, const Eigen::Vector3d& s)
+bool Face::containsPoint(const Mesh& mesh, const Eigen::Vector3d& p) const
 {
-    double rs = r.cross(s).norm();
-    if (rs < EPSILON) {
-        return false;
-    }
+    const Eigen::Vector3d& p1(mesh.vertices[indices[0]].position);
+    const Eigen::Vector3d& p2(mesh.vertices[indices[1]].position);
+    const Eigen::Vector3d& p3(mesh.vertices[indices[2]].position);
     
-    Eigen::Vector3d qp = q-p;
-    double t = qp.cross(s).norm() / rs;
-    double u = qp.cross(r).norm() / rs;
+    Eigen::Vector3d v1 = p2 - p1;
+    Eigen::Vector3d v2 = p3 - p1;
+    Eigen::Vector3d v3 = p - p1;
     
-    return t >= 0 && t <= 1 && u >= 0 && u <= 1;
+    double dot11 = v1.dot(v1);
+    double dot12 = v1.dot(v2);
+    double dot13 = v1.dot(v3);
+    double dot22 = v2.dot(v2);
+    double dot23 = v2.dot(v3);
+    
+    // compute barycentric coordinates
+    double invDen = 1 / (dot11*dot22 - dot12*dot12);
+    double u = (dot22*dot13 - dot12*dot23) * invDen;
+    double v = (dot11*dot23 - dot12*dot13) * invDen;
+    
+    return (u >= 0) && (v >= 0) && (u + v <= 1);
 }
 
 bool Face::overlap(const Mesh& mesh, const int fIdx, const Eigen::Vector3d& normal) const
@@ -111,27 +120,25 @@ bool Face::overlap(const Mesh& mesh, const int fIdx, const Eigen::Vector3d& norm
     Eigen::Vector3d t12 = mesh.vertices[mesh.faces[fIdx].indices[1]].position - t1;
     Eigen::Vector3d t13 = mesh.vertices[mesh.faces[fIdx].indices[2]].position - t1;
     
-    double dot = fabs(normal.dot(t11) + normal.dot(t12) + normal.dot(t13));
+    if (fabs(normal.dot(t11)) < EPSILON &&
+        fabs(normal.dot(t12)) < EPSILON &&
+        fabs(normal.dot(t13)) < EPSILON) { // triangles are coplanar
     
-    if (dot < EPSILON) { // triangles are coplanar
-        
-        // check if any of the edges of the two triangles overlap
+        // check if triangles intersect or are contained in one another
         for (int i = 0; i < 3; i++) {
-            int nextI = (i+1) % 3;
-            Eigen::Vector3d l1 = mesh.vertices[indices[i]].position -
-                                 mesh.vertices[indices[nextI]].position;
-            
-            for (int j = 0; j < 3; j++) {
-                int nextJ = (j+1) % 3;
-                Eigen::Vector3d l2 = mesh.vertices[mesh.faces[fIdx].indices[j]].position -
-                                     mesh.vertices[mesh.faces[fIdx].indices[nextJ]].position;
-                
-                if (intersect(mesh.vertices[indices[i]].position, l1,
-                              mesh.vertices[mesh.faces[fIdx].indices[j]].position, l2)) {
-                    return true;
-                }
+            if (containsPoint(mesh, mesh.vertices[mesh.faces[fIdx].indices[i]].position)) {
+                return true;
             }
         }
+        
+        int n = 0;
+        for (int i = 0; i < 3; i++) {
+            if (mesh.faces[fIdx].containsPoint(mesh, mesh.vertices[indices[i]].position)) {
+                n ++;
+            }
+        }
+        
+        if (n == 3) return true;
     }
     
     return false;
