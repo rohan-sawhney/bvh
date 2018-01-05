@@ -3,7 +3,7 @@ Brute force collision detection is an O(n^2) operation. A bounding volume hierar
 
 Construction of a BVH proceeds by partitioning the input set into two (or more) subsets. Each subset is then bounded in a bounding volume and recursively partitioned (and bounded) until each subset consists of only a single geometric primitive. 
 
-![](zfighting.png)
+![](z-fighting.png)
 
 This implementation z fighting in the scene depicted above by using a BVH to detect overlaps between geometric primitives. The construction and search operation are performed using a stack as in practice it works faster than the recursive approach.
 
